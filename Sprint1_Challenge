@@ -1,0 +1,97 @@
+-- TASK-1:- create a database and store the data 
+
+create database stylexcarz_db;
+use stylexcarz_db;
+/*========================================================================================================*/
+
+-- TASK-2:- Create three tables to store the details of salesperson,customers,and orders of car sales.
+-- name these tables as salesperson,customers,and orders, resp
+
+create table salesperson
+(salespersonid int primary key,
+salesperson_name varchar(20) not null,
+salesperson_city varchar(20) not null,
+commission_rate int not null);
+desc salesperson;
+
+create table customers
+(customerid int primary key,
+c_lastname varchar(20) not null,
+c_firstname varchar(20)not null,
+c_city varchar(20)not null,
+c_rating int not null);
+desc customers;
+
+create table orders
+(orderid int not null,
+amount int not null,
+orderdate date not null,
+salespersonid int not null,
+customerid int not null,
+foreign key(salespersonid) references salesperson(salespersonid),
+foreign key(customerid) references customers(customerid));
+desc orders;
+/*============================================================================================================*/
+
+-- TASK-3:-Insert the data in the salesperson, customer, and orders tables using given data
+
+insert into salesperson (salespersonid, salesperson_name, salesperson_city, commission_rate)
+values
+(1001, "william", "new york", 12),
+(1002, "liam", "new jersey", 13),
+(1003, "axelrod", "san jose", 10),
+(1004, "james", "san diego", 11),
+(1005, "fran", "austin", 26),
+(1007, "oliver", "new york", 15),
+(1008, "john", "atlanta", 2),
+(1009, "charles", "new jersey", 2);
+select * from salesperson;
+
+insert into customers (customerid, c_lastname, c_firstname, c_city, c_rating)
+values
+(2001, "hoffman", "anny", "new york", 1),
+(2002, "goivanni", "jenny", "new jersey", 2),
+(2003, "liu", "williams", "san jose", 3),
+(2004, "grass", "harry", "san diego",3),
+(2005, "clemens", "john", "austin", 4),
+(2006, "cisneros", "fanny", "new york", 4),
+(2007, "pereira", "jonathan", "atlanta", 3);
+select * from customers;
+
+insert into orders (orderid, amount, orderdate, salespersonid, customerid)
+values
+(3001, 23, '2020-02-01', 1009, 2007),
+(3002, 20, '2021-02-23', 1007, 2007),
+(3003, 89, '2021-03-06', 1002, 2002),
+(3004, 67, '2021-04-02', 1004, 2002),
+(3005, 30, '2021-07-30', 1001, 2007),
+(3006, 35, '2021-09-18', 1001, 2004),
+(3007, 19, '2021-10-02', 1001, 2001),
+(3008, 21, '2021-10-09', 1003, 2003),
+(3009, 45, '2021-10-10', 1009, 2005);
+select * from orders;
+/*==============================================================================================================*/
+
+-- TASK-4:- The company wants to increase the commission to 15% all of those whose commission below 15%
+
+SET SQL_SAFE_UPDATES = 0;
+update salesperson set commission_rate=15 where commission_rate<15;
+/*====================================================================================================================*/
+
+-- TASK-5:- to prevent any loss create a backup of the orders table and name it as orders_bkp
+
+create database stylexcarz_db_bkp;
+use stylexcarz_db_bkp;
+create table orders_bkp like stylexcarz_db.orders;
+desc orders_bkp;
+insert into orders_bkp
+select * from stylexcarz_db.orders;
+select * from orders_bkp;
+/*======================================================================================================================*/
+
+-- TASK-6:- Increase the rating by three points of those who have placed an order more than one
+
+update customers set c_rating=c_rating+3 where customerid=2002;
+update customers set c_rating=c_rating=3 where customerid=2007;
+select * from customers;
+/*===================================================================================================================*/
