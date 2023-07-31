@@ -1,0 +1,87 @@
+-- *****************************************************************************************************************************************************************
+-- TASK-1:-
+-- CREATE A DATABSE TO STORE EMPLOYEES RECORDS AND NAME IT 'TECHMAN_DB'
+-- USE THE 'TECHMAC_DB' BATABASE TO STORE DATABASE OBJECTS SUCH AS TABLES
+-- *****************************************************************************************************************************************************************
+
+create database techmac_db;
+use techmac_db;
+
+-- *****************************************************************************************************************************************************************
+-- TASK-2:- 
+-- Create three tables to store the details of employees of three startups
+-- alter the employeeID column with the primary key constrings
+-- The age of employee should between 21 to 55
+-- *****************************************************************************************************************************************************************
+
+create table techhyve_employees
+(employeeID varchar(10)primary key not null,
+firstname char(10),
+lastname char(10),
+gender char(10),
+age int check(age between 21 and 55));
+
+desc techhyve_employees;
+
+create table techcloud_employees
+(employeeID varchar(10) primary key not null,
+firstname varchar(10),
+lastname varchar(10),
+gender varchar (10),
+age int check(age between 21 and 55));
+
+desc techcloud_employees;
+
+create table techsoft_employees
+(employeeID varchar(10) primary key not null,
+firstname varchar(10),
+lastname varchar(10),
+gender varchar (10),
+age int check(age between 21 and 55));
+
+desc techsoft_employees;
+
+-- *****************************************************************************************************************************************************************
+-- Task-3:-
+-- The organization has suggested to store the communication profifiency level of employees
+-- Its range from 1 to 5 alter the three tables and add a new column 
+-- *****************************************************************************************************************************************************************
+
+alter table techhyve_employees add (communication_proficiency int check(communication_proficiency between 1 and 5)default 1);
+
+alter table techcloud_employees add (communication_proficiency int check(communication_proficiency between 1 and 5)default 1);
+
+alter table techsoft_employees add (communication_proficiency int check(communication_proficiency between 1 and 5)default 1);
+
+-- *****************************************************************************************************************************************************************
+-- Task-4:-
+-- Insert the employees data in the three tables using insert into command
+-- *****************************************************************************************************************************************************************
+
+insert into techhyve_employees (employeeID,firstname,lastname,gender,age,communication_proficiency)
+values
+("TH0001","Eli","Evans","Male",26,1),
+("TH0002","Carlos","Simmons","Male",32,2),
+("TH0003","Kathie","Bryant","Female",25,1),
+("TH0004","Joey","Hughes","Male",41,4),
+("TH0005","Alice","Matthews","Female",52,4);
+select * from techhyve_employees;
+
+insert into techcloud_employees (employeeID,firstname,lastname,gender,age,communication_proficiency)
+values
+("TC0001","Teresa","Bryant","Female",39,2),
+("TC0002","Alexis","Patterson","Male",48,5),
+("TC0003","Rose","Bell","Female",42,3),
+("TC0004","Gemma","Watkins","Female",44,3),
+("TC0005","Kingston","Martinez","Male",29,2);
+select * from techcloud_employees;
+
+insert into techsoft_employees (employeeID,firstname,lastname,gender,age,communication_proficiency)
+values
+("TS0001","Peter","Burtler","Male",44,4),
+("TS0002","Harold","Simmons","Male",54,4),
+("TS0003","Juliana","Sanders","Female",36,2),
+("TS0004","Paul","Ward","Male",29,2),
+("TS0005","Nicole","Bryant","Female",30,2);
+select * from techsoft_employees;
+
